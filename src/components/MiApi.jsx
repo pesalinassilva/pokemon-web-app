@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react"
 import ListarPokemones from "./ListarPokemones"
 import Ordenar from "./Ordenar"
+import Buscador from './Buscador'
 
-const MiApi = ({buscarPokemon}) => {
+const MiApi = () => {
     //estado inicial para almacener datos de la API
-    const [pokeDetails, setPokeDetails] = useState([])
-    const [reset, setReset] = useState(pokeDetails)
+    const [pokeData, setPokeData] = useState([])
+    const [pokemones, setPokemones] = useState(pokeData)
+    const [fraseBusqueda, setFraseBusqueda] = useState('')
+    const [ordenAlfabetico, setOrdenAlfabetico] = useState([])
+    const [ordenId, setOrdenId] = useState([])
+
     
     //Función asincrona para llenado de la API
     const getData = async () => {
@@ -18,11 +23,11 @@ const MiApi = ({buscarPokemon}) => {
             const dataDetails = await response.json()
             return dataDetails;
         })
-    
-        const detailsData = await Promise.all(detailsPromises)
+        
+        const detailsData = await Promise.all(detailsPromises)  //se utiliza un Promise.all para que dentro del map se espere que se cumplan todas las promesas antes de agregarlas a detailsData
 
-        setPokeDetails(detailsData)
-        setReset(detailsData)
+        setPokeData(detailsData) //Estado para mantener la data original en caso de que sea necesario.
+        setPokemones(detailsData)   //estado para trabajar la información
     }
     
     useEffect(() => {
@@ -30,39 +35,57 @@ const MiApi = ({buscarPokemon}) => {
     }, [])
     
     //Filtro de busqueda a través del input de Buscador.jsx
-    const aplicarBusqueda = pokeDetails.filter((pokemon) => {
-        return (
-            pokemon.name.toLowerCase().includes(buscarPokemon.toLowerCase()) ||
-            pokemon.id.toString().includes(buscarPokemon.toString())
-        )
-    })
 
+    const buscar = (e) => {
+        const textoBusqueda = e.target.value
+        const aplicarBusqueda = pokeData.filter((pokemon) => {
+            return (
+                pokemon.name.toLowerCase().includes(textoBusqueda.toLowerCase()) ||
+                pokemon.id.toString().includes(textoBusqueda.toString())
+                )
+            })
+        setFraseBusqueda(textoBusqueda)
+        setPokemones(aplicarBusqueda)
+    }
+
+    //Función para ordenar alfabeticamente
     const ordenarAlf = () => {
-        const ordenAlf = [...aplicarBusqueda]
-        ordenAlf.sort((x, y) => x.name.localeCompare(y.name))
-        setPokeDetails(ordenAlf)
+        const ordenAlf = [...pokemones]
+        if (ordenAlfabetico){
+            setPokemones(pokemones.reverse())
+            setOrdenAlfabetico([])
+        }else{
+            ordenAlf.sort((nombre1, nombre2) => nombre1.name.localeCompare(nombre2.name))
+            setOrdenAlfabetico(ordenAlf)
+            setPokemones(ordenAlf)
+        }
     }
 
+    //funcion para ordenar según id
     const ordenarNum = () => {
-        const ordenNum = [...aplicarBusqueda]
-        ordenNum.sort((x, y) => x.id - y.id)
-        setPokeDetails(ordenNum)
+        const ordenNum = [...pokemones]
+        if (ordenId){
+            setPokemones(pokemones.reverse())
+            setOrdenId([])
+        }else{
+            ordenNum.sort((id1, id2) => id1.id - id2.id)
+            setOrdenId(ordenNum)
+            setPokemones(ordenNum)
+        }
     }
 
-    const resetear = () => {
-        setPokeDetails(reset)
-    }
-
-    //console.log(pokeDetails, aplicarBusqueda)
     return(
         <>  
+            <Buscador 
+                fraseBusqueda={fraseBusqueda}
+                buscar={buscar}
+            />
             <Ordenar 
                 ordenarAlf={ordenarAlf}
                 ordenarNum={ordenarNum}
-                reset={resetear}
             />
             <div className="container text-center d-flex">
-                <ListarPokemones pokeDetails={aplicarBusqueda}/>
+                <ListarPokemones pokemones={pokemones}/>
             </div>
         </>
     )

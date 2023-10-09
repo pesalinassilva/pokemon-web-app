@@ -1,12 +1,12 @@
 import { useState } from "react"
 import CardDetail from "./CardDetail"
 
-const ListarPokemones = ({pokeDetails}) => {
+const ListarPokemones = ({pokemones}) => {
 
     const [details, setDetails] = useState(null)
 
     const consultarDetails = (pokeId) => {
-        const pokemonConsultado = pokeDetails.filter(pokemon => pokemon.id == pokeId)
+        const pokemonConsultado = pokemones.filter(pokemon => pokemon.id == pokeId)
         setDetails(pokemonConsultado)
     }
 
@@ -14,7 +14,7 @@ const ListarPokemones = ({pokeDetails}) => {
         <>  
 
             <div className="row">
-                {pokeDetails.map((pokemon) =>
+                {pokemones.map((pokemon) =>
                     <div className="col" key={pokemon.id}>
                         <div className="m-2 card" style={{width: '15rem'}} onClick={()=> {consultarDetails(pokemon.id)}}>
                                 <p>{`${pokemon.id}`}</p>
