@@ -8,8 +8,7 @@ const MiApi = () => {
     const [pokeData, setPokeData] = useState([])
     const [pokemones, setPokemones] = useState(pokeData)
     const [fraseBusqueda, setFraseBusqueda] = useState('')
-    const [ordenAlfabetico, setOrdenAlfabetico] = useState(null)
-    const [ordenId, setOrdenId] = useState(null)
+    const [orden, setOrden] = useState(null)
 
     
     //Función asincrona para llenado de la API
@@ -51,12 +50,12 @@ const MiApi = () => {
     //Función para ordenar alfabeticamente
     const ordenarAlf = () => {
         const ordenAlf = [...pokemones]
-        if (ordenAlfabetico){
+        if (orden){
             setPokemones(pokemones.reverse())
-            setOrdenAlfabetico(null)
+            setOrden(null)
         }else{
             ordenAlf.sort((nombre1, nombre2) => nombre1.name.localeCompare(nombre2.name))
-            setOrdenAlfabetico(ordenAlf)
+            setOrden(ordenAlf)
             setPokemones(ordenAlf)
         }
     }
@@ -64,12 +63,12 @@ const MiApi = () => {
     //funcion para ordenar según id
     const ordenarNum = () => {
         const ordenNum = [...pokemones]
-        if (ordenId){
+        if (orden){
             setPokemones(pokemones.reverse())
-            setOrdenId(null)
+            setOrden(null)
         }else{
             ordenNum.sort((id1, id2) => id1.id - id2.id)
-            setOrdenId(ordenNum)
+            setOrden(ordenNum)
             setPokemones(ordenNum)
         }
     }
