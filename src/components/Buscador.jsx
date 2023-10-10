@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react"
 
 const Buscador = ({fraseBusqueda, buscar}) => {
+    
     const inputRef = useRef()
-
     useEffect(()=>{
         inputRef.current.focus()
     }, [])

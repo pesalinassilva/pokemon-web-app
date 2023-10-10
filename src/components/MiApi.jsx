@@ -8,10 +8,10 @@ const MiApi = () => {
     const [pokeData, setPokeData] = useState([])
     const [pokemones, setPokemones] = useState(pokeData)
     const [fraseBusqueda, setFraseBusqueda] = useState('')
-    const [orden, setOrden] = useState(null)
+    const [orden, setOrden] = useState(false)
 
     
-    //Función asincrona para llenado de la API
+    //Función asincrona para uso de la API
     const getData = async () => {
         const url = 'https://pokeapi.co/api/v2/pokemon/'
         const response = await fetch (url)

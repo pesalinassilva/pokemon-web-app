@@ -13,15 +13,14 @@ const ListarPokemones = ({pokemones}) => {
 
         //pasar primera letra a mayuscula
     const nombreMayus = (nombre) => {
-        var primeraLetra = nombre.charAt(0).toUpperCase()
-        var resto = nombre.slice(1)
-        var nombreFinal = primeraLetra + resto
+        let primeraLetra = nombre.charAt(0).toUpperCase()
+        let resto = nombre.slice(1)
+        let nombreFinal = primeraLetra + resto
         return nombreFinal
     }
 
     return (
         <>  
-
             <div className="row mb-4">
                 {pokemones.map((pokemon) =>
                     <button className="col btn btn-info" key={pokemon.id}>
