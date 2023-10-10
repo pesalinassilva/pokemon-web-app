@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 function App() {
 
   return (
-    <div className='container text-light' style={{width: '100%'}}>
+    <div className='text-light' style={{width: '100%'}}>
         <Encabezado />
         <MiApi/>
         <Footer />

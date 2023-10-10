@@ -1,5 +1,12 @@
+import { useEffect, useRef } from "react"
+
 const Buscador = ({fraseBusqueda, buscar}) => {
-    
+    const inputRef = useRef()
+
+    useEffect(()=>{
+        inputRef.current.focus()
+    }, [])
+
     return (
         <>
             <input
@@ -8,6 +15,7 @@ const Buscador = ({fraseBusqueda, buscar}) => {
                 placeholder="Ingresa el nombre o número de pokemon que deseas revisar"
                 onChange={buscar}
                 value={fraseBusqueda}
+                ref={inputRef}
             />
         </>
 
