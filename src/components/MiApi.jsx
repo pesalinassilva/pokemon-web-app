@@ -50,26 +50,26 @@ const MiApi = () => {
     //Función para ordenar alfabeticamente
     const ordenarAlf = () => {
         const ordenAlf = [...pokemones]
-        if (orden){
-            setPokemones(pokemones.reverse())
-            setOrden(null)
-        }else{
+        if (orden == false){
             ordenAlf.sort((nombre1, nombre2) => nombre1.name.localeCompare(nombre2.name))
-            setOrden(ordenAlf)
+            setOrden(true)
             setPokemones(ordenAlf)
+        }else{
+            setPokemones(pokemones.reverse())
+            setOrden(false)
         }
     }
 
     //funcion para ordenar según id
     const ordenarNum = () => {
         const ordenNum = [...pokemones]
-        if (orden){
-            setPokemones(pokemones.reverse())
-            setOrden(null)
-        }else{
+        if (orden == false){
             ordenNum.sort((id1, id2) => id1.id - id2.id)
-            setOrden(ordenNum)
+            setOrden(true)
             setPokemones(ordenNum)
+        }else{
+            setPokemones(pokemones.reverse())
+            setOrden(false)
         }
     }
 
