@@ -23,10 +23,10 @@ const MiApi = () => {
             return dataDetails;
         })
         
-        const detailsData = await Promise.all(detailsPromises)  //se utiliza un Promise.all para que dentro del map se espere que se cumplan todas las promesas antes de agregarlas a detailsData
+        const detailsData = await Promise.all(detailsPromises)  
 
-        setPokeData(detailsData) //Estado para mantener la data original en caso de que sea necesario.
-        setPokemones(detailsData)   //estado para trabajar la información
+        setPokeData(detailsData) 
+        setPokemones(detailsData)
     }
     
     useEffect(() => {
